@@ -10,13 +10,13 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = Task::all();
-        return view('dashboard', compact('tasks'));
+        return view('pages.taskfunc', compact('tasks'));
 
     }
 
     public function create(Task $task)
     {
-        return view('dashboard.create');
+        return view('taskfunc.create');
     }
 
     public function store(Request $request)
@@ -35,7 +35,7 @@ class TaskController extends Controller
 
 
        // return view('dashboard', compact('tasks', 'successMessage'));
-       return redirect('/')->with('success', 'Task created successfully!');
+       return redirect('/taskfunc')->with('success', 'Task created successfully!');
 
     }
 
@@ -66,7 +66,7 @@ class TaskController extends Controller
         $task->update($validatedData);
 
         // Return a success response
-        return redirect('/')->with('success', 'Task updated successfully!');
+        return redirect('/taskfunc')->with('success', 'Task updated successfully!');
     }
 
 
@@ -75,7 +75,7 @@ class TaskController extends Controller
     $task = Task::findOrFail($id);
     $task->delete();
 
-    return redirect('/')->with('success', 'Task deleted successfully!');
+    return redirect('/taskfunc')->with('success', 'Task deleted successfully!');
 }
 
 }

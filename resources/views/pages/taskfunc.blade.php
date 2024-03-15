@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 @if(session('success'))
     <div id="successAlert" class="alert alert-success alert-dismissible fade show" role="alert">
@@ -9,7 +8,7 @@
 @endif
 
 <h1>{{$title}}</h1>
-<p>This is the dashboard page.</p>
+<p>This is the function page.</p>
 
 <!--Task Portal-->
 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add-task-modal">Add Task</button>
