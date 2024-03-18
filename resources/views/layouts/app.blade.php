@@ -19,12 +19,13 @@
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
             @include('layouts.navigation')
 
-            <!-- Page Heading -->
-
-
             <!-- Page Content -->
             <main>
-                @yield('content')
+                @auth
+                    @yield('content')
+                @else
+                    <p>You are not logged in.</p>
+                @endauth
             </main>
         </div>
          <!-- Bootstrap -->

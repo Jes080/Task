@@ -5,20 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Task;
 
-class TaskController extends Controller
+
+
+class ApiController extends Controller
 {
+    // Method to fetch all tasks
     public function index()
     {
-        $tasks = Task::all();
-        return view('pages.taskfunc', compact('tasks'));
-
+        return Task::all();
     }
 
-    public function create(Task $task)
-    {
-        return view('taskfunc.create');
-    }
-
+    // Method to create a new task
     public function store(Request $request)
     {
         // Validate the incoming request data
@@ -31,19 +28,18 @@ class TaskController extends Controller
         ]);
 
         // Create a new task using the validated data
-        Task::create($validatedData);
+        $task = Task::create($validatedData);
 
-       return redirect('/taskfunc')->with('success', 'Task created successfully!');
-
+        // Return the created task
+        return response()->json($task, 201);
     }
 
-    // Method to fetch task data by ID for
+    // Method to fetch a task by ID
     public function show($id)
     {
         $task = Task::findOrFail($id);
         return response()->json($task);
     }
-
 
     // Method to update a task
     public function update(Request $request, $id)
@@ -64,16 +60,16 @@ class TaskController extends Controller
         $task->update($validatedData);
 
         // Return a success response
-        return redirect('/taskfunc')->with('success', 'Task updated successfully!');
+        return response()->json($task, 200);
     }
 
-
+    // Method to delete a task
     public function destroy($id)
-{
-    $task = Task::findOrFail($id);
-    $task->delete();
+    {
+        $task = Task::findOrFail($id);
+        $task->delete();
 
-    return redirect('/taskfunc')->with('success', 'Task deleted successfully!');
-}
-
+        // Return a success response
+        return response()->json(['message' => 'Task deleted successfully'], 200);
+    }
 }

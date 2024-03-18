@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PagesController;
+use App\Http\Controllers\TaskController;
 use App\Models\Task;
 
 
@@ -18,41 +19,15 @@ use App\Models\Task;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('tasks', function() {
-    // If the Content-Type and Accept headers are set to 'application/json',
-    // this will return a JSON structure. This will be cleaned up later.
-    return Task::all();
-});
-
-Route::get('tasks/{id}', function($id) {
-    return Task::find($id);
-});
-
-Route::post('tasks', function(Request $request) {
-    return Task::create($request->all);
-});
-
-Route::put('tasks/{id}', function(Request $request, $id) {
-    $tasks = Task::findOrFail($id);
-    $tasks->update($request->all());
-
-    return $tasks;
-});
-
-Route::delete('tasks/{id}', function($id) {
-    Task::find($id)->delete();
-
-    return 204;
-});
-
-Route::get('show', 'TaskController@index');
-Route::get('tasks/{task}', 'TaskController@show');
-Route::post('tasks', 'TaskController@store');
-Route::put('tasks/{task}', 'TaskController@update');
-Route::delete('tasks/{task}', 'TaskController@delete');
+// Define API routes for tasks
+Route::get('/tasks', [ApiController::class, 'index'])->middleware('auth:api');
+Route::post('/tasks', [ApiController::class, 'store'])->middleware('auth:api');
+Route::get('/tasks/{id}', [ApiController::class, 'show'])->middleware('auth:api');
+Route::put('/tasks/{id}', [ApiController::class, 'update'])->middleware('auth:api');
+Route::delete('/tasks/{id}', [ApiController::class, 'destroy'])->middleware('auth:api');
 
 ?>
