@@ -1,4 +1,5 @@
 CRUD with Laravel 11 using wampserver.
+data save in mysql
 Not using Laravel Passport for api registration and login due to continous error I encounter.
 C:\wamp64\www\task
 
